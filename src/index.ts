@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useCallback } from "react";
 import { RegisterOptions, useController, useForm, useFormContext } from "react-hook-form";
 
 export default function useHybridInput<T>({name, externalOnChange, externalOnBlur, externalValue, defaultValue, options}: {
@@ -14,15 +14,15 @@ export default function useHybridInput<T>({name, externalOnChange, externalOnBlu
     const {field: {onChange: internalOnChange, onBlur: internalOnBlur, value: internalValue}, fieldState: {error}} = useController({name, control: form?.control ?? fallbackControl, rules: options, defaultValue})
     const value: T = form ? internalValue : externalValue;
 
-    function onChange(value: T) {
+    const onChange = useCallback((value: T) => {
         externalOnChange?.(value);
         internalOnChange?.(value);
-    }
+    }, [externalOnChange, internalOnChange]);
 
-    function onBlur(e?: React.FocusEvent) {
+    const onBlur = useCallback((e?: React.FocusEvent) => {
         externalOnBlur?.(e);
         internalOnBlur?.();
-    }
+    }, [externalOnBlur, internalOnBlur]);
 
     return {value, onChange, onBlur, error};
 }
