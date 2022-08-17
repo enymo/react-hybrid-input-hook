@@ -1,0 +1,36 @@
+{
+  "name": "@enymo/react-hybrid-input-hook",
+  "version": "1.0.0",
+  "description": "Hook to create inputs that work both independent and as part of a react form",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "tsup": {
+    "entry": [
+      "src/index.ts"
+    ],
+    "dts": true
+  },
+  "scripts": {
+    "build": "tsup"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://gitlab.internal.enymo.com/enymo/library/react-hybrid-input-hook.git"
+  },
+  "author": "enymo GmbH",
+  "license": "UNLICENSED",
+  "publishConfig": {
+    "@enymo:registry": "https://gitlab.internal.enymo.com/api/v4/projects/68/packages/npm/"
+  },
+  "devDependencies": {
+    "@types/react": "^18.0.17",
+    "tsup": "^6.2.2",
+    "typescript": "^4.7.4"
+  },
+  "peerDependencies": {
+    "react": ">=17.0.0"
+  },
+  "dependencies": {
+    "react-hook-form": "^7.34.2"
+  }
+}
