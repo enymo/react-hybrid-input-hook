@@ -1,7 +1,7 @@
 import React, { useCallback } from "react";
 import { RegisterOptions, useController, useForm, useFormContext } from "react-hook-form";
 
-export default function useHybridInput<T>({name, externalOnChange, externalOnBlur, externalValue, defaultValue, options}: {
+export default function useHybridInput<T>({name = "", externalOnChange, externalOnBlur, externalValue, defaultValue, options}: {
     name?: string,
     externalOnChange?: (value: T) => void,
     externalOnBlur?: (e: React.FocusEvent) => void,
