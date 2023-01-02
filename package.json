@@ -10,7 +10,7 @@
     ".": {
       "types": "./dist/index.d.ts",
       "import": "./dist/index.mjs",
-      "required": "./dist/index.js"
+      "require": "./dist/index.js"
     }
   },
   "tsup": {
