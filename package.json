@@ -5,6 +5,14 @@
   "module": "dist/index.mjs",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
+  "exports": {
+    "./package.json": "./package.json",
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.mjs",
+      "required": "./dist/index.js"
+    }
+  },
   "tsup": {
     "entry": [
       "src/index.ts"
