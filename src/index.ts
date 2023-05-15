@@ -2,10 +2,10 @@ import React, { useCallback } from "react";
 import { RegisterOptions, useController, useForm, useFormContext } from "react-hook-form";
 import { NativeSyntheticEvent, TextInputFocusEventData } from "react-native";
 
-export default function useHybridInput<T>({name = "", externalOnChange, externalOnBlur, externalValue, defaultValue, options}: {
+export default function useHybridInput<T, U extends React.FocusEvent | NativeSyntheticEvent<TextInputFocusEventData>>({name = "", externalOnChange, externalOnBlur, externalValue, defaultValue, options}: {
     name?: string,
     externalOnChange?: (value: T) => void,
-    externalOnBlur?: (e: React.FocusEvent | NativeSyntheticEvent<TextInputFocusEventData>) => void,
+    externalOnBlur?: (e: U) => void,
     externalValue?: T,
     defaultValue?: T,
     options?: RegisterOptions
@@ -20,7 +20,7 @@ export default function useHybridInput<T>({name = "", externalOnChange, external
         internalOnChange?.(value);
     }, [externalOnChange, internalOnChange]);
 
-    const onBlur = useCallback((e?: React.FocusEvent | NativeSyntheticEvent<TextInputFocusEventData>) => {
+    const onBlur = useCallback((e?: U) => {
         externalOnBlur?.(e);
         internalOnBlur?.();
     }, [externalOnBlur, internalOnBlur]);
