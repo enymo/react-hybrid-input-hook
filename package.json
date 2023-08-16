@@ -1,6 +1,6 @@
 {
   "name": "@enymo-internal/react-hybrid-input-hook",
-  "version": "1.0.11",
+  "version": "1.1.0",
   "description": "Hook to create inputs that work both independent and as part of a react form",
   "module": "dist/index.mjs",
   "main": "dist/index.js",
