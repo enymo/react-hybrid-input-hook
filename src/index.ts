@@ -4,7 +4,7 @@ import { NativeSyntheticEvent, TextInputFocusEventData } from "react-native";
 
 export default function useHybridInput<T, U extends React.FocusEvent | NativeSyntheticEvent<TextInputFocusEventData>>({name = "", externalOnChange, externalOnBlur, externalValue, defaultValue, options}: {
     name?: string,
-    externalOnChange?: (value: T) => void,
+    externalOnChange?: (value: T) => void | Promise<void>,
     externalOnBlur?: (e: U) => void,
     externalValue?: T,
     defaultValue?: T,
@@ -16,8 +16,8 @@ export default function useHybridInput<T, U extends React.FocusEvent | NativeSyn
     const value: T = form ? internalValue : externalValue;
 
     const onChange = useCallback((value: T) => {
-        externalOnChange?.(value);
         internalOnChange?.(value);
+        return externalOnChange?.(value);
     }, [externalOnChange, internalOnChange]);
 
     const onBlur = useCallback((e?: U) => {
