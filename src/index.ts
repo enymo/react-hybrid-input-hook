@@ -1,5 +1,5 @@
 import React, { useCallback } from "react";
-import { RegisterOptions, useController, useForm, useFormContext } from "react-hook-form";
+import { RegisterOptions, useController, useFormContext } from "react-hook-form";
 import { NativeSyntheticEvent, TextInputFocusEventData } from "react-native";
 
 export default function useHybridInput<T, U extends React.FocusEvent | NativeSyntheticEvent<TextInputFocusEventData>>({name = "", externalOnChange, externalOnBlur, externalValue, defaultValue, options}: {
@@ -10,9 +10,8 @@ export default function useHybridInput<T, U extends React.FocusEvent | NativeSyn
     defaultValue?: T,
     options?: RegisterOptions
 }) {
-    const {control: fallbackControl} = useForm();
     const form = useFormContext();
-    const {field: {onChange: internalOnChange, onBlur: internalOnBlur, value: internalValue}, fieldState: {error}} = useController({name, control: form?.control ?? fallbackControl, rules: options, defaultValue})
+    const {field: {onChange: internalOnChange, onBlur: internalOnBlur, value: internalValue}, fieldState: {error}} = useController({name, control: form?.control, rules: options, defaultValue})
     const value: T = form ? internalValue : externalValue;
 
     const onChange = useCallback((value: T) => {
@@ -20,7 +19,7 @@ export default function useHybridInput<T, U extends React.FocusEvent | NativeSyn
         return externalOnChange?.(value);
     }, [externalOnChange, internalOnChange]);
 
-    const onBlur = useCallback((e?: U) => {
+    const onBlur = useCallback((e: U) => {
         externalOnBlur?.(e);
         internalOnBlur?.();
     }, [externalOnBlur, internalOnBlur]);
