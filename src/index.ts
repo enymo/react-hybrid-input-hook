@@ -12,7 +12,7 @@ export default function useHybridInput<T, U extends React.FocusEvent | NativeSyn
 }) {
     const form = useFormContext();
     const {field: {onChange: internalOnChange, onBlur: internalOnBlur, value: internalValue}, fieldState: {error}} = useController({name, control: form?.control, rules: options, defaultValue})
-    const value: T = form ? internalValue : externalValue;
+    const value: T = (form && name) ? internalValue : externalValue;
 
     const onChange = useCallback((value: T) => {
         internalOnChange?.(value);
