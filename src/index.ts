@@ -1,8 +1,7 @@
-import React, { useCallback } from "react";
+import { useCallback } from "react";
 import { RegisterOptions, useController, useForm, useFormContext } from "react-hook-form";
-import { NativeSyntheticEvent, TextInputFocusEventData } from "react-native";
 
-export default function useHybridInput<T, U extends React.FocusEvent | NativeSyntheticEvent<TextInputFocusEventData>>({
+export default function useHybridInput<T, U>({
     name = "",
     externalOnChange,
     externalOnBlur,
