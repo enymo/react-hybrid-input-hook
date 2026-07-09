@@ -5,6 +5,7 @@ export default function useHybridInput<T, U>({
     name = "",
     externalOnChange,
     externalOnBlur,
+    externalSetError,
     externalValue,
     externalError,
     defaultValue,
@@ -13,6 +14,7 @@ export default function useHybridInput<T, U>({
     name?: string,
     externalOnChange?: (value: T) => void | Promise<void>,
     externalOnBlur?: (e: U) => void,
+    externalSetError?: (error: string) => void,
     externalValue?: T,
     externalError?: string,
     defaultValue?: T,
@@ -34,5 +36,15 @@ export default function useHybridInput<T, U>({
         internalOnBlur?.();
     }, [externalOnBlur, internalOnBlur]);
 
-    return {value, onChange, onBlur, error};
+    const setError = useCallback((error: string) => {
+        externalSetError?.(error);
+        if (name !== undefined) {
+            form?.setError(name, {
+                type: 'manual',
+                message: error
+            });
+        }
+    }, [externalSetError, form, name]);
+
+    return {value, onChange, onBlur, setError, error};
 }
